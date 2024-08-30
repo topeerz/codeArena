@@ -6,12 +6,12 @@
 //
 
 import Foundation
-
+import Observation
 
 @MainActor
-class DateListViewModel: ObservableObject {
+@Observable
+class DateListViewModel {
 
-    @Published
     var currentDates = [CurrnetDate]()
 
     func popuplateListView() async {

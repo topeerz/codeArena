@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
 
     // TODO: how could I use Observation framework here?
-    @StateObject private var viewModel = DateListViewModel()
+    @State private var viewModel = DateListViewModel()
 
     var body: some View {
         NavigationView {
