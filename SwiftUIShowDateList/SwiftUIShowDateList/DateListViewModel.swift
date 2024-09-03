@@ -12,6 +12,7 @@ import Observation
 @Observable
 class DateListViewModel {
 
+    var text = "123"
     var currentDates = [CurrnetDate]()
 
     func popuplateListView() async {
@@ -26,6 +27,10 @@ class DateListViewModel {
             currentDates.append(date)
         }
     }
+}
+
+class OldModel: ObservableObject {
+    @Published var imageText = "circle"
 }
 
 struct CurrnetDate: Decodable, Identifiable, Hashable {
