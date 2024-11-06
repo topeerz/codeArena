@@ -9,10 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
 
-    private var vm2 = OldModel()
-    @State private var viewModel = DateListViewModel()
-    @Environment(DateListViewModel.self) var dlv
+    private var vm2 = OldModel() // that's just test to compare "older" approach
 
+    @State private var viewModel = DateListViewModel()
     @Bindable private var viewModel3 = DateListViewModel()
 
     var body: some View {
@@ -34,6 +33,13 @@ struct ContentView: View {
             .task {
                 await viewModel.popuplateListView()
             }
+
+            .alert("!!!", isPresented: $viewModel.loading) {
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("loading...")
+            }
+
             .environmentObject(vm2)
         }
     }
