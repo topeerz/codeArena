@@ -51,8 +51,8 @@ class URLProtocolMock: URLProtocol {
 }
 
 @MainActor
-struct DataListViewModelTest {
-    let sut = DateListVM()
+struct DataListInteractorlTest {
+    let sut = DateListI(appI: AppI(appM: AppM()), vm: DateListVM())
 
     @Test mutating func test_populateListView_shouldPopulateCurrentDates() async throws {
         // given
@@ -73,10 +73,10 @@ struct DataListViewModelTest {
         sut.dateService = DateService(urlSession: urlSession)
 
         // when
-        await sut.popuplateListView()
+        await sut.populateList()
 
         // then
-        #expect(sut.currentDates.contains(expectedCurrentDate))
+        #expect(sut.vm.currentDates.contains(expectedCurrentDate))
     }
 
 }
