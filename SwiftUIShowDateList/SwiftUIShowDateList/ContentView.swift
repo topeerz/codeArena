@@ -11,6 +11,7 @@ struct ContentView: View {
 
     private var subViewVM = SubViewVM() // that's just test to compare "older" approach
 
+    @State private var am = AppM()
     @State private var vm = DateListVM()
 
     var body: some View {

@@ -8,6 +8,11 @@
 import Foundation
 import Observation
 
+@Observable
+class AppM {
+    var triangleMode
+}
+
 @MainActor
 @Observable
 class DateListVM {
