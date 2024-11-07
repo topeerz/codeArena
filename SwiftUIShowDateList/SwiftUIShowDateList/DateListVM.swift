@@ -10,7 +10,7 @@ import Observation
 
 @MainActor
 @Observable
-class DateListViewModel {
+class DateListVM {
 
     var text = "123"
     var currentDates = [CurrnetDate]()
@@ -35,7 +35,7 @@ class DateListViewModel {
     }
 }
 
-class OldModel: ObservableObject {
+class SubViewVM: ObservableObject {
     @Published var imageText = "circle"
 }
 
