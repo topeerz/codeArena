@@ -15,7 +15,8 @@ class DateListViewModel {
     var text = "123"
     var currentDates = [CurrnetDate]()
     var loading = false
-    var dateService: DateServiceProtocol = DateService()
+    // this will be created during initialization of swift ui - hence seems it will get called in UT (including sending requests) before we actually test anything?
+    var dateService: DateServiceProtocol = DateService(urlSession: URLSession.shared)
 
     // TODO: problem with this approach is that we have logic in view model. This shall be probably migrated to VIA.
     func popuplateListView() async {
@@ -38,12 +39,22 @@ class OldModel: ObservableObject {
     @Published var imageText = "circle"
 }
 
+class UUIDProvider {
+    static var forge = { UUID() }
+    class func uuid() -> UUID {
+        forge()
+    }
+}
+
 struct CurrnetDate: Decodable, Identifiable, Hashable {
     let date: String
-    let id: UUID
+    let id: UUID = UUIDProvider.uuid()
 
-    init(id: UUID = UUID(), date: String) {
-        self.id = id
+    private enum CodingKeys: String, CodingKey {
+        case date
+    }
+
+    init(date: String) {
         self.date = date
     }
 }

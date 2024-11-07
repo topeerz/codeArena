@@ -27,6 +27,7 @@
 		C8AA1F462C764BC000D3B776 /* SwiftUIShowDateList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUIShowDateList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8AA1F562C764BC200D3B776 /* SwiftUIShowDateListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftUIShowDateListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8AA1F602C764BC200D3B776 /* SwiftUIShowDateListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftUIShowDateListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8B551C12CDCE1CF000B6932 /* SwiftUIShowDateList.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftUIShowDateList.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +76,7 @@
 		C8AA1F3D2C764BC000D3B776 = {
 			isa = PBXGroup;
 			children = (
+				C8B551C12CDCE1CF000B6932 /* SwiftUIShowDateList.xctestplan */,
 				C8AA1F482C764BC000D3B776 /* SwiftUIShowDateList */,
 				C8AA1F592C764BC200D3B776 /* SwiftUIShowDateListTests */,
 				C8AA1F632C764BC200D3B776 /* SwiftUIShowDateListUITests */,

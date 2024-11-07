@@ -11,14 +11,25 @@ protocol DateServiceProtocol {
     func getDate() async throws -> CurrnetDate?
 }
 
-// TODO: add UT here - mock to URLProtocol level
 struct DateService: DateServiceProtocol {
+
+    private var urlSession: URLSession?
+
+    init(urlSession: URLSession?) {
+        self.urlSession = urlSession
+    }
+
     func getDate() async throws -> CurrnetDate? {
         guard let url = URL(string: "https://aluminum-accidental-tray.glitch.me/testme") else {
             fatalError("url failed")
         }
 
-        let (data, response)  = try await URLSession.shared.data(from: url)
+        guard let urlSession = urlSession else {
+            // TODO: add error handling?
+            fatalError("url session doesn't exist")
+        }
+
+        let (data, response) = try await urlSession.data(from: url)
         return try? JSONDecoder().decode(CurrnetDate.self, from: data)
     }
 }
