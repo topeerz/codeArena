@@ -29,6 +29,7 @@ struct DateService: DateServiceProtocol {
             fatalError("url session doesn't exist")
         }
 
+        // TODO: handle response error statuses?
         let (data, response) = try await urlSession.data(from: url)
         return try? JSONDecoder().decode(CurrnetDate.self, from: data)
     }

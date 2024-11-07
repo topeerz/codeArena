@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var appM: AppM
+    private let appI: AppI
 
-    private var subViewVM = SubViewVM() // that's just test to compare "older" approach
+    @State private var vm: DateListVM
+    private var vi: DateListI
 
-    @State private var am = AppM()
-    @State private var vm = DateListVM()
+    init(appM: AppM, appI: AppI) {
+        self.appM = appM
+        self.appI = appI
+
+        let vm = DateListVM()
+        self.vm = vm
+        self.vi = DateListI(appI: appI, vm: vm)
+    }
 
     var body: some View {
         NavigationView {
@@ -24,36 +33,40 @@ struct ContentView: View {
             .navigationTitle("My List")
             .navigationBarItems(trailing: Button(action: {
                 Task {
-                    await vm.popuplateListView()
-                    subViewVM.imageText = "triangle"
+                    await vi.onReloadButton()
                 }
             }, label: {
                 Image(systemName: "arrow.clockwise.circle")
             }))
             .task {
-                await vm.popuplateListView()
+                await vi.onInit()
             }
-
             .alert("!!!", isPresented: $vm.loading) {
-                Button("Cancel", role: .cancel) {}
+                Button("Cancel", role: .cancel) {
+                    Task {
+                        await vi.onCancelButton()
+                    }
+                }
             } message: {
                 Text("loading...")
             }
-
-            .environmentObject(subViewVM)
+            .environmentObject(appI) // so it can be later used in subviews if needed
+            .environmentObject(appM) // so it can be later used in subviews if needed
         }
     }
 }
 
 struct SubView: View {
-    @EnvironmentObject var vm: SubViewVM
+    @EnvironmentObject var appM: AppM
 
     var body: some View {
         Text("subView")
-        Image(systemName: vm.imageText)
+        Image(systemName: appM.triangleMode ? "triangle" : "")
     }
 }
 
 #Preview {
-    ContentView()
+    @Previewable @State var appM = AppM()
+    let appI = AppI(appM: appM)
+    ContentView(appM: appM, appI: appI)
 }

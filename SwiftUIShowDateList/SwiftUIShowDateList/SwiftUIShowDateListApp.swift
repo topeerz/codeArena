@@ -28,9 +28,19 @@ struct TestApp: App {
 }
 
 struct SwiftUIShowDateListApp: App {
+    
+    @State private var appM: AppM
+    private var appI: AppI
+
+    init() {
+        let appM = AppM()
+        self.appM = appM
+        self.appI = AppI(appM: appM)
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(appM: appM, appI: appI)
         }
     }
 }

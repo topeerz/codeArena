@@ -8,40 +8,67 @@
 import Foundation
 import Observation
 
+// TODO: update objects ownership and add `weak` where necessary
+class AppI: ObservableObject {
+    var appM: AppM?
+
+    init(appM: AppM) {
+        self.appM = appM
+    }
+}
+
 @Observable
-class AppM {
-    var triangleMode
+class AppM: ObservableObject {
+    var triangleMode = false
 }
 
 @MainActor
-@Observable
-class DateListVM {
-
-    var text = "123"
-    var currentDates = [CurrnetDate]()
-    var loading = false
+class DateListI {
+    var appI: AppI
+    var vm: DateListVM
     // this will be created during initialization of swift ui - hence seems it will get called in UT (including sending requests) before we actually test anything?
     var dateService: DateServiceProtocol = DateService(urlSession: URLSession.shared)
 
-    // TODO: problem with this approach is that we have logic in view model. This shall be probably migrated to VIA.
-    func popuplateListView() async {
-        loading = true
+    init(appI: AppI, vm: DateListVM) {
+        self.appI = appI
+        self.vm = vm
+    }
 
-        currentDates.removeAll()
+    func populateList() async {
+        vm.loading = true
+
+        vm.currentDates.removeAll()
         for _ in (1...3) {
             guard let date = try? await dateService.getDate() else {
                 return
             }
 
-            currentDates.append(date)
+            vm.currentDates.append(date)
         }
 
-        loading = false
+        vm.loading = false
+    }
+
+    func onInit() async {
+        await populateList()
+    }
+
+    func onReloadButton() async {
+        await populateList()
+        appI.appM?.triangleMode = true
+    }
+
+    func onCancelButton() async {
+        appI.appM?.triangleMode = false
     }
 }
 
-class SubViewVM: ObservableObject {
-    @Published var imageText = "circle"
+@MainActor
+@Observable
+class DateListVM {
+    var text = "123"
+    var currentDates = [CurrnetDate]()
+    var loading = false
 }
 
 class UUIDProvider {
