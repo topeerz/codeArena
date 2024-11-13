@@ -57,6 +57,7 @@ struct RootView: View {
         .task {
             await vi.onInit()
         }
+        // TODO: alert seems to cease to work after switching views
         .alert("!!!", isPresented: $vm.loading) {
             Button("Cancel", role: .cancel) {
                 Task {
@@ -92,5 +93,9 @@ struct OtherView: View {
     @Previewable @State var appM = AppM()
     @Previewable @State var appR = RootRouter()
     let appI = AppI(appM: appM, appR: appR)
-    RootView(appM: appM, appI: appI)
+    NavigationStack {
+        RootView(appM: appM, appI: appI)
+            .environmentObject(appI)  // so it can be later used in subviews if needed?
+            .environmentObject(appM)  // so it can be later used in subviews if needed?
+    }
 }

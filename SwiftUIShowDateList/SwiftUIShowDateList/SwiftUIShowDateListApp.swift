@@ -41,7 +41,7 @@ struct SwiftUIShowDateListApp: App {
         WindowGroup {
             NavigationStack(path: $appR.navPath) {
                 RootView(appM: appM, appI: appI)
-                // TODO: the navigationDestination could be moved inside RootView. Which one is better? Probably it depends is it sub-view or ohter-feature view.
+                // TODO: the navigationDestination could be moved inside RootView. Which one is better? Probably it depends is it sub-view or ohter-feature view. Probably we should have two enums for that?
                 .navigationDestination(for: RootRouter.Destination.self) { destination in
                     switch(destination) {
                         case .one:
@@ -58,3 +58,23 @@ struct SwiftUIShowDateListApp: App {
     }
 }
 
+#Preview {
+    @Previewable @State var appR: RootRouter = RootRouter()
+    @Previewable @State var appM: AppM = AppM()
+    var appI = AppI(appM: appM, appR: appR)
+
+    NavigationStack(path: $appR.navPath) {
+        RootView(appM: appM, appI: appI)
+        .navigationDestination(for: RootRouter.Destination.self) { destination in
+            switch(destination) {
+                case .one:
+                    OtherView()
+
+                case .two:
+                    OtherView()
+            }
+        }
+        .environmentObject(appI)
+        .environmentObject(appM)
+    }
+}
