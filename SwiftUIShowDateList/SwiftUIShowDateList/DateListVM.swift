@@ -7,13 +7,42 @@
 
 import Foundation
 import Observation
+import SwiftUI // for NavigationPath
 
-// TODO: update objects ownership and add `weak` where necessary
+
+// TODO: should I merge this with Interactor or just use from ineractor?
+@Observable
+class RootRouter: ObservableObject {
+    public enum Destination: Codable, Hashable {
+        case one
+        case two
+    }
+
+    var navPath = NavigationPath()
+
+    func navigate(to destination: Destination) {
+        navPath.append(destination)
+    }
+
+    func navigateBack() {
+        navPath.removeLast()
+    }
+
+    func navigateToRoot() {
+        navPath.removeLast(navPath.count)
+    }
+}
+
 class AppI: ObservableObject {
     var appM: AppM?
+    var appR: RootRouter?
 
-    init(appM: AppM) {
+    init(appM: AppM, appR: RootRouter) {
         self.appM = appM
+        self.appR = appR
+    }
+
+    init() {
     }
 }
 
@@ -56,6 +85,10 @@ class DateListI {
     func onReloadButton() async {
         await populateList()
         appI.appM?.triangleMode = true
+    }
+
+    func onNavigateButton() async {
+        appI.appR?.navigate(to: .two)
     }
 
     func onCancelButton() async {
