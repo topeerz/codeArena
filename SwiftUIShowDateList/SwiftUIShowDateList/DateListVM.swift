@@ -12,7 +12,7 @@ import SwiftUI // for NavigationPath
 
 // TODO: should I merge this with Interactor or just use from ineractor?
 @Observable
-class RootRouter: ObservableObject {
+class RootRouter {
     public enum Destination: Codable, Hashable {
         case one
         case two
@@ -33,7 +33,7 @@ class RootRouter: ObservableObject {
     }
 }
 
-class AppI: ObservableObject {
+class AppI: ObservableObject { // ObservableObject so I can pass it via env ...
     var appM: AppM?
     var appR: RootRouter?
 
@@ -47,16 +47,19 @@ class AppI: ObservableObject {
 }
 
 @Observable
-class AppM: ObservableObject {
+class AppM {
     var triangleMode = false
 }
 
 @MainActor
 class DateListI {
-    var appI: AppI
-    var vm: DateListVM
+    var appI: AppI!
+    weak var vm: DateListVM!
     // this will be created during initialization of swift ui - hence seems it will get called in UT (including sending requests) before we actually test anything?
     var dateService: DateServiceProtocol = DateService(urlSession: URLSession.shared)
+
+    init() {
+    }
 
     init(appI: AppI, vm: DateListVM) {
         self.appI = appI
@@ -73,9 +76,14 @@ class DateListI {
             }
 
             vm.currentDates.append(date)
+
         }
 
         vm.loading = false
+    }
+
+    func onClick() {
+        vm.clicks += 1
     }
 
     func onInit() async {
@@ -98,10 +106,11 @@ class DateListI {
 
 @MainActor
 @Observable
-class DateListVM {
+class DateListVM  {
     var text = "123"
     var currentDates = [CurrnetDate]()
     var loading = false
+    var clicks: Int = 0
 }
 
 class UUIDProvider {

@@ -40,6 +40,7 @@ struct SwiftUIShowDateListApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $appR.navPath) {
+                // TODO: why is this getting called when app is _leaving_ RootView?
                 RootView(appM: appM, appI: appI)
                 // TODO: the navigationDestination could be moved inside RootView. Which one is better? Probably it depends is it sub-view or ohter-feature view. Probably we should have two enums for that?
                 .navigationDestination(for: RootRouter.Destination.self) { destination in
@@ -51,9 +52,9 @@ struct SwiftUIShowDateListApp: App {
                             OtherView()
                     }
                 }
-                .environmentObject(appI)  // so it can be later used in subviews if needed?
-                .environmentObject(appM)  // so it can be later used in subviews if needed?
             }
+            .environmentObject(appI)  // so it can be later used in subviews if needed?
+            .environment(appM)  // so it can be later used in subviews if needed?
         }
     }
 }
@@ -75,6 +76,6 @@ struct SwiftUIShowDateListApp: App {
             }
         }
         .environmentObject(appI)
-        .environmentObject(appM)
+        .environment(appM)
     }
 }
