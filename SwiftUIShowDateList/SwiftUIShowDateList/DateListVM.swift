@@ -54,7 +54,7 @@ class AppM {
 @MainActor
 class DateListI {
     var appI: AppI!
-    weak var vm: DateListVM!
+    var vm: DateListVM!
     // this will be created during initialization of swift ui - hence seems it will get called in UT (including sending requests) before we actually test anything?
     var dateService: DateServiceProtocol = DateService(urlSession: URLSession.shared)
 

@@ -52,7 +52,7 @@ class URLProtocolMock: URLProtocol {
 
 @MainActor
 struct DataListInteractorlTest {
-    let sut = DateListI(appI: AppI(appM: AppM()), vm: DateListVM())
+    let sut = DateListI(appI: AppI(appM: AppM(), appR: RootRouter()), vm: DateListVM())
 
     @Test mutating func test_populateListView_shouldPopulateCurrentDates() async throws {
         // given
