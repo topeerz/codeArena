@@ -10,7 +10,6 @@ import Observation
 import SwiftUI // for NavigationPath
 
 
-// TODO: should I merge this with Interactor or just use from ineractor?
 @Observable
 class RootRouter {
     public enum Destination: Codable, Hashable {

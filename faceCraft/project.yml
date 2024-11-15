@@ -1,0 +1,45 @@
+name: FaceCraft
+options:
+  bundleIdPrefix: com.facecraft
+  deploymentTarget:
+    iOS: 15.0
+  configs:
+    debug:
+      xcconfig: Config.xcconfig
+    release:
+      xcconfig: Config.xcconfig
+targets:
+  FaceCraft:
+    type: application
+    platform: iOS
+    sources: 
+      - path: .
+        excludes:
+          - "*.yml"
+          - "*.md"
+          - ".gitignore"
+    settings:
+      base:
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.facecraft.app
+        CODE_SIGN_IDENTITY: ""
+        CODE_SIGNING_REQUIRED: NO
+        CODE_SIGNING_ALLOWED: NO
+        DEVELOPMENT_TEAM: "" # You'll need to set this to your team ID
+    info:
+      path: Info.plist
+      properties:
+        LSRequiresIPhoneOS: true
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: Default Configuration
+                UISceneDelegateClassName: $(PRODUCT_MODULE_NAME).SceneDelegate
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
