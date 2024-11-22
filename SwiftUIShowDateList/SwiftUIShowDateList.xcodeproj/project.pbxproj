@@ -31,19 +31,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		C8AA1F482C764BC000D3B776 /* SwiftUIShowDateList */ = {
+		C8AA1F482C764BC000D3B776 /* App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SwiftUIShowDateList;
+			path = App;
 			sourceTree = "<group>";
 		};
-		C8AA1F592C764BC200D3B776 /* SwiftUIShowDateListTests */ = {
+		C8AA1F592C764BC200D3B776 /* Tests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SwiftUIShowDateListTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
-		C8AA1F632C764BC200D3B776 /* SwiftUIShowDateListUITests */ = {
+		C8AA1F632C764BC200D3B776 /* UITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SwiftUIShowDateListUITests;
+			path = UITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -77,9 +77,9 @@
 			isa = PBXGroup;
 			children = (
 				C8B551C12CDCE1CF000B6932 /* SwiftUIShowDateList.xctestplan */,
-				C8AA1F482C764BC000D3B776 /* SwiftUIShowDateList */,
-				C8AA1F592C764BC200D3B776 /* SwiftUIShowDateListTests */,
-				C8AA1F632C764BC200D3B776 /* SwiftUIShowDateListUITests */,
+				C8AA1F482C764BC000D3B776 /* App */,
+				C8AA1F592C764BC200D3B776 /* Tests */,
+				C8AA1F632C764BC200D3B776 /* UITests */,
 				C8AA1F472C764BC000D3B776 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -110,7 +110,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				C8AA1F482C764BC000D3B776 /* SwiftUIShowDateList */,
+				C8AA1F482C764BC000D3B776 /* App */,
 			);
 			name = SwiftUIShowDateList;
 			packageProductDependencies = (
@@ -133,7 +133,7 @@
 				C8AA1F582C764BC200D3B776 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				C8AA1F592C764BC200D3B776 /* SwiftUIShowDateListTests */,
+				C8AA1F592C764BC200D3B776 /* Tests */,
 			);
 			name = SwiftUIShowDateListTests;
 			packageProductDependencies = (
@@ -156,7 +156,7 @@
 				C8AA1F622C764BC200D3B776 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				C8AA1F632C764BC200D3B776 /* SwiftUIShowDateListUITests */,
+				C8AA1F632C764BC200D3B776 /* UITests */,
 			);
 			name = SwiftUIShowDateListUITests;
 			packageProductDependencies = (
@@ -397,7 +397,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"SwiftUIShowDateList/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"App/App/Resources\"";
 				DEVELOPMENT_TEAM = 6PKNZ97H3W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -426,7 +426,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"SwiftUIShowDateList/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"App/App/Resources\"";
 				DEVELOPMENT_TEAM = 6PKNZ97H3W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
