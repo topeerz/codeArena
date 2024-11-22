@@ -8,7 +8,7 @@
 import Observation
 import SwiftUI
 
-struct RootView: View {
+struct DateListView: View {
     @State private var appM: AppM
     private let appI: AppI
 
@@ -103,7 +103,7 @@ struct OtherView: View {
     @Previewable @State var appR = RootRouter()
     let appI = AppI(appM: appM, appR: appR)
 //    NavigationStack {
-        RootView(appM: appM, appI: appI)
+        DateListView(appM: appM, appI: appI)
             .environmentObject(appI)  // so it can be later used in subviews if needed?
             .environment(appM)  // so it can be later used in subviews if needed?
 //    }
