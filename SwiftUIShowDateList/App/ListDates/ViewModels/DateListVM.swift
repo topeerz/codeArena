@@ -12,14 +12,18 @@ import SwiftUI // for NavigationPath
 
 @Observable
 class RootRouter {
-    public enum Destination: Codable, Hashable {
-        case one
+
+    public protocol DestinationProtocol: Codable, Hashable {
+    }
+
+    public enum DateListViewDestination: DestinationProtocol {
+        case dateDetail
         case two
     }
 
     var navPath = NavigationPath()
 
-    func navigate(to destination: Destination) {
+    func navigate(to destination: any DestinationProtocol) {
         navPath.append(destination)
     }
 
@@ -85,6 +89,11 @@ class DateListI {
         vm.clicks += 1
     }
 
+    func onTap(at index: Int) {
+        // why I can't have multiple NavStacks perhaps I still want to have multiple routers resuing app navpath?
+        appI.appR?.navigate(to: RootRouter.DateListViewDestination.dateDetail)
+    }
+
     func onInit() async {
         await populateList()
     }
@@ -95,7 +104,7 @@ class DateListI {
     }
 
     func onNavigateButton() async {
-        appI.appR?.navigate(to: .two)
+        appI.appR?.navigate(to: RootRouter.DateListViewDestination.dateDetail)
     }
 
     func onCancelButton() async {

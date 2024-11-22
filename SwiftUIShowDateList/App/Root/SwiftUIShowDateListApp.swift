@@ -39,14 +39,15 @@ struct SwiftUIShowDateListApp: App {
 
     var body: some Scene {
         WindowGroup {
+            // Gotha! nesting NavigationStacks seems to be bad idea: https://stackoverflow.com/questions/76301602/dealing-with-nested-navigationstacks-in-swiftui
             NavigationStack(path: $appR.navPath) {
                 // TODO: why is this getting called when app is _leaving_ RootView?
                 DateListView(appM: appM, appI: appI)
                 // TODO: the navigationDestination could be moved inside RootView. Which one is better? Probably it depends is it sub-view or ohter-feature view. Probably we should have two enums for that?
-                .navigationDestination(for: RootRouter.Destination.self) { destination in
+                .navigationDestination(for: RootRouter.DateListViewDestination.self) { destination in
                     switch(destination) {
-                        case .one:
-                            OtherView()
+                        case .dateDetail:
+                            DateDetailView()
 
                         case .two:
                             OtherView()
@@ -66,10 +67,10 @@ struct SwiftUIShowDateListApp: App {
 
     NavigationStack(path: $appR.navPath) {
         DateListView(appM: appM, appI: appI)
-        .navigationDestination(for: RootRouter.Destination.self) { destination in
+        .navigationDestination(for: RootRouter.DateListViewDestination.self) { destination in
             switch(destination) {
-                case .one:
-                    OtherView()
+                case .dateDetail:
+                    DateDetailView()
 
                 case .two:
                     OtherView()

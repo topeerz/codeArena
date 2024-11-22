@@ -40,6 +40,9 @@ struct DateListView: View {
         }
         List(vm.currentDates.enumerated().map { $0 }, id: \.1) { index, date in
             Text("\(index + 1) \(date.date)")
+                .onTapGesture {
+                    vi.onTap(at: index)
+                }
             SubView()
         }
         .listStyle(.plain)
@@ -84,8 +87,10 @@ struct SubView: View {
     @Environment(AppM.self) var appM
 
     var body: some View {
-        Text("subView")
-        Image(systemName: appM.triangleMode ? "triangle" : "figure.hiking")
+        HStack {
+            Text("subView")
+            Image(systemName: appM.triangleMode ? "triangle" : "figure.hiking")
+        }
     }
 }
 
