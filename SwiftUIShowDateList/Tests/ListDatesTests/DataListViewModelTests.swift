@@ -50,6 +50,14 @@ class URLProtocolMock: URLProtocol {
     }
 }
 
+extension DateListI {
+    convenience init(appI: AppI, vm: DateListVM) {
+        self.init()
+        self.appI = appI
+        self.vm = vm
+    }
+}
+
 @MainActor
 struct DataListInteractorlTests {
     let sut = DateListI(appI: AppI(appM: AppM(), appR: RootRouter()), vm: DateListVM())

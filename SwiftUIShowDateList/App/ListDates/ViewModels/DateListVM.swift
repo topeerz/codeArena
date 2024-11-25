@@ -64,14 +64,10 @@ class DateListI {
     init() {
     }
 
-    init(appI: AppI, vm: DateListVM) {
-        self.appI = appI
-        self.vm = vm
-    }
-
     func populateList() async {
         vm.loading = true
 
+        // Load new or reuse cached somewhere values ...
         vm.currentDates.removeAll()
         for _ in (1...3) {
             guard let date = try? await dateService.getDate() else {
