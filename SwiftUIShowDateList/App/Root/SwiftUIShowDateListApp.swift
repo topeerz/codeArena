@@ -29,6 +29,7 @@ struct TestApp: App {
 }
 
 struct SwiftUIShowDateListApp: App {
+    @State private var navPath = NavigationPath()
     @State private var appR: RootRouter = RootRouter()
     @State private var appM: AppM = AppM()
     private var appI: AppI!
@@ -38,12 +39,18 @@ struct SwiftUIShowDateListApp: App {
     }
 
     var body: some Scene {
+        let _ = appR.navPath = $navPath
         WindowGroup {
             // Gotha! nesting NavigationStacks seems to be bad idea: https://stackoverflow.com/questions/76301602/dealing-with-nested-navigationstacks-in-swiftui
-            NavigationStack(path: $appR.navPath) {
+            NavigationStack(path: appR.navPath) {
+                DebugView()
                 // TODO: why is this getting called when app is _leaving_ RootView?
+                // This seems to be triggered even for dummy views which has not been changed ...
+                // The issue realted to lack of releasing some instances of @State objects seems to be also present in simple view.
+                // The problem seems to be caused by init called on View which we are leaving. It seems to be caused by notification which is coming due to
+                // modification of NavigaitonPath when it is wrapped inside some class (like router). This problem doesn't seem to exist when navpath is created
+                // on top level (in app) and router just hold binding to it.
                 DateListView(appM: appM, appI: appI)
-                // TODO: the navigationDestination could be moved inside RootView. Which one is better? Probably it depends is it sub-view or ohter-feature view. Probably we should have two enums for that?
                 .navigationDestination(for: RootRouter.DateListViewDestination.self) { destination in
                     switch(destination) {
                         case .dateDetail:
@@ -56,6 +63,7 @@ struct SwiftUIShowDateListApp: App {
             }
             .environmentObject(appI)  // so it can be later used in subviews if needed?
             .environment(appM)  // so it can be later used in subviews if needed?
+            .environment(appR)
         }
     }
 }
@@ -63,9 +71,9 @@ struct SwiftUIShowDateListApp: App {
 #Preview {
     @Previewable @State var appR: RootRouter = RootRouter()
     @Previewable @State var appM: AppM = AppM()
-    var appI = AppI(appM: appM, appR: appR)
+    let appI = AppI(appM: appM, appR: appR)
 
-    NavigationStack(path: $appR.navPath) {
+    NavigationStack(path: appR.navPath) {
         DateListView(appM: appM, appI: appI)
         .navigationDestination(for: RootRouter.DateListViewDestination.self) { destination in
             switch(destination) {

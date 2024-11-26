@@ -21,18 +21,18 @@ class RootRouter {
         case two
     }
 
-    var navPath = NavigationPath()
+    var navPath: Binding<NavigationPath>!
 
     func navigate(to destination: any DestinationProtocol) {
-        navPath.append(destination)
+        navPath.wrappedValue.append(destination)
     }
 
     func navigateBack() {
-        navPath.removeLast()
+        navPath.wrappedValue.removeLast()
     }
 
     func navigateToRoot() {
-        navPath.removeLast(navPath.count)
+        navPath.wrappedValue.removeLast(navPath.wrappedValue.count)
     }
 }
 
@@ -86,7 +86,6 @@ class DateListI {
     }
 
     func onTap(at index: Int) {
-        // why I can't have multiple NavStacks perhaps I still want to have multiple routers resuing app navpath?
         appI.appR?.navigate(to: RootRouter.DateListViewDestination.dateDetail)
     }
 

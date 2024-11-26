@@ -8,6 +8,25 @@
 import Observation
 import SwiftUI
 
+@Observable
+class DummyWhatever {
+    var test1 = false
+}
+
+struct DebugView: View {
+    @EnvironmentObject var appI: AppI
+    @State private var dummy = DummyWhatever()
+
+    var body: some View {
+        let _ = Self._printChanges()
+        Text("DebugView")
+        Button("go to detail") {
+            appI.appR?.navigate(to: RootRouter.DateListViewDestination.dateDetail)
+        }
+    }
+}
+
+
 struct DateListView: View {
     @State private var appM: AppM
     private let appI: AppI
@@ -35,7 +54,8 @@ struct DateListView: View {
     // TODO: what about SwiftData?
     // TODO: try profiling this in instruments
     var body: some View {
-        Button("click me \(vm.clicks)") {
+        let _ = Self._printChanges()
+        Button("clock counter: \(vm.clicks)") {
             vi.onClick()
         }
         List(vm.currentDates.enumerated().map { $0 }, id: \.1) { index, date in
