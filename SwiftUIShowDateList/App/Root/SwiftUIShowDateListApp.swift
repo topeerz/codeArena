@@ -69,9 +69,11 @@ struct SwiftUIShowDateListApp: App {
 }
 
 #Preview {
+    @Previewable @State var navPath = NavigationPath()
     @Previewable @State var appR: RootRouter = RootRouter()
     @Previewable @State var appM: AppM = AppM()
     let appI = AppI(appM: appM, appR: appR)
+    let _ = appR.navPath = $navPath
 
     NavigationStack(path: appR.navPath) {
         DateListView(appM: appM, appI: appI)
